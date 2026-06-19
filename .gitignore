@@ -1,0 +1,35 @@
+# IDE 个人配置（不入库）
+.trae/
+.cursorrules
+.vscode/
+.idea/
+
+# 临时文件（运行时生成，不入库）
+temp/*
+!temp/.gitkeep
+
+# 坚果云同步缓存
+.nutstore/
+~NutStore/
+
+# 系统垃圾文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python 运行时（如使用 /转换 命令产生的虚拟环境）
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 教材原件（版权敏感，仅保留 textbooks/README.md 作为目录说明）
+# 如需分享教材，请通过其他私有渠道
+textbooks/*.pdf
+textbooks/*.epub
+textbooks/*.mobi
+textbooks/*.txt
+textbooks/*.docx
+# 允许 textbooks/ 下的章节 md 文件入库（用户自己转换的）
+!textbooks/*.md
+!textbooks/**/*.md

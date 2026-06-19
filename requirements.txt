@@ -1,0 +1,19 @@
+# 苏格拉底·七 家教系统 - Python 依赖
+# 安装方式：pip install -r requirements.txt
+
+# ===== 教材转换工具 =====
+# EPUB 解析
+ebooklib>=0.18
+beautifulsoup4>=4.12
+
+# HTML → Markdown 转换
+markdownify>=0.11
+html2text>=2024.2.26
+
+# PDF 文本提取（纯 Python，无需编译 C 扩展）
+pdfplumber>=0.11
+pdfminer.six>=20231228
+
+# Pandoc Python 封装（自带二进制，pip install 即可用）
+# 注意：如遇安装问题，可改用 pypandoc（需系统已安装 Pandoc）
+pypandoc-binary>=1.11
