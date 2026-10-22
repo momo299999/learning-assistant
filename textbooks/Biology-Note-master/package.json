@@ -1,0 +1,34 @@
+{
+  "name": "biology-note",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "高中生物知识库与高考复习指南",
+  "dependencies": {
+    "@waline/client": "^3.15.2",
+    "blueimp-md5": "^2.19.0",
+    "markdown-it-mathjax3": "^4.3.2",
+    "qrcode.vue": "^3.9.1"
+  },
+  "devDependencies": {
+    "@types/blueimp-md5": "^2.18.2",
+    "@types/node": "^25.9.1",
+    "fast-glob": "^3.3.3",
+    "medium-zoom": "^1.1.0",
+    "oxfmt": "^0.67.0",
+    "playwright": "^1.60.0",
+    "schema-dts": "^1.1.5",
+    "typescript": "6.0.3",
+    "vitepress": "2.0.0-alpha.18",
+    "yaml": "^2.9.0"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "typecheck": "tsc --noEmit",
+    "pdf:all": "node scripts/export-pdf.js --concurrency 4",
+    "pdf:package": "node scripts/package-pdf.js"
+  }
+}

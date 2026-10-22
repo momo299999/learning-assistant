@@ -1,0 +1,119 @@
+<template>
+  <nav id="breadcrumb" v-if="items.length" aria-label="Breadcrumb">
+    <span v-for="(item, index) in items" :key="index" class="bc-item">
+      <a v-if="item.link" :href="item.link" class="bc-link">{{ item.name }}</a>
+      <span v-else class="bc-current">{{ item.name }}</span>
+      <span v-if="index < items.length - 1" class="bc-sep" aria-hidden="true">›</span>
+    </span>
+  </nav>
+</template>
+
+<script setup lang="ts">
+import { useData, withBase } from "vitepress";
+import { ref, watchEffect } from "vue";
+
+type Breadcrumb = {
+  name: string;
+  link: string;
+};
+
+const { page } = useData();
+const items = ref<Breadcrumb[]>([]);
+
+watchEffect(() => {
+  const filePath = page.value.filePath || page.value.relativePath || "";
+  if (!filePath || filePath === "index.md" || filePath === "README.md") {
+    items.value = [];
+    return;
+  }
+
+  const pathSegs = filePath.replace(/\\/g, "/").split("/").filter(Boolean);
+  if (!pathSegs.length) return;
+
+  if (pathSegs.length === 1) {
+    const pageTitle = page.value.title || pathSegs[0].replace(/\.md$/, "");
+    items.value = [
+      {
+        name: "首页",
+        link: withBase("/"),
+      },
+      {
+        name: pageTitle,
+        link: "",
+      },
+    ];
+    return;
+  }
+
+  const rawChapter = pathSegs[0];
+  const cleanChapter = rawChapter.replace(/^\d{2}\s*/, "");
+  const isChapterIndex = pathSegs.length === 2 && pathSegs[1] === "index.md";
+
+  const list: Breadcrumb[] = [
+    {
+      name: "首页",
+      link: withBase("/"),
+    },
+    {
+      name: cleanChapter,
+      link: isChapterIndex ? "" : withBase(`/${encodeURI(rawChapter)}/index`),
+    },
+  ];
+
+  if (pathSegs.length > 1 && !isChapterIndex) {
+    const rawFile = pathSegs[1].replace(/\.md$/, "");
+    const cleanFile = rawFile.replace(/^\d{2}\s*/, "").replace(/^考点\s*/, "考点 · ");
+    list.push({
+      name: cleanFile,
+      link: "",
+    });
+  }
+
+  items.value = list;
+});
+</script>
+
+<style scoped>
+#breadcrumb {
+  margin-bottom: 1.25rem;
+  font-size: 0.88rem;
+  color: var(--vp-c-text-2);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  min-height: 44px;
+}
+
+.bc-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.bc-link {
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.bc-link:hover {
+  color: var(--vp-c-brand-1);
+  background: color-mix(in srgb, var(--vp-c-brand-1) 8%, transparent);
+}
+
+.bc-current {
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  padding: 4px 6px;
+}
+
+.bc-sep {
+  margin: 0 0.25rem;
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  user-select: none;
+}
+</style>

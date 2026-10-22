@@ -1,0 +1,23 @@
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store
+node_modules/
+export/tmp/
+export/mathjax/
+export/mathjax.tgz
+output/
+dist/
+.vitepress/dist
+.vitepress/.temp
+.vitepress/cache
+*.pdf
+.github/changed-pages/
+data/
+tools/
+pdf-repo-single/
+pdf-repo/
+scripts/pdf-repo-test.txt
+scripts/gen_ch*.py
+# Playwright SVG 渲染质检临时产物，禁止入库
+public/images/test_*.png
