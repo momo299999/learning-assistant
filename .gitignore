@@ -3,6 +3,7 @@
 .cursorrules
 .vscode/
 .idea/
+.obsidian/
 
 # 临时文件（运行时生成，不入库）
 temp/*
